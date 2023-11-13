@@ -6,4 +6,4 @@ Description: "Hi guys! Welcome to our team's website! Our project represents our
 
 https://weblinguistics-exercise14.netlify.app/
 
-EXERCISE 7 - WEB LINGUISTICS
+EXERCISE 14 - WEB LINGUISTICS
