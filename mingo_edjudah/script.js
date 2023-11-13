@@ -15,7 +15,8 @@ function addComment() {
   if (nameInput.value && commentInput.value) {
     let commentElement = document.createElement("div");
     commentElement.className = "comment";
-    commentElement.innerHTML = `<strong>${nameInput.value}:</strong> ${commentInput.value}`;
+    commentElement.innerHTML = `<strong>${nameInput.value}:
+      </strong> ${commentInput.value}`;
 
     commentsContainer.appendChild(commentElement);
 
