@@ -11,9 +11,9 @@ document.addEventListener('DOMContentLoaded', function () {
             const newComment = document.createElement('div');
             newComment.className = 'comment_container';
             newComment.innerHTML = `<strong>Name: ${name}
-						</strong><br>${comment}<br><br>`;
+			</strong><br>${comment}<br><br>`;
 
-            commentsContainer.insertBefore(newComment,
+            commentsContainer.insertBefore(newComment, 
 			commentsContainer.firstChild);
 
             document.getElementById('name').value = '';
