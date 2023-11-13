@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const commentButton = document.getElementById('comment_button');
     const commentText = document.getElementById('comment_text');
     const commentsContainer = document.getElementById('comments');
+    const sortSelect = document.getElementById('sort');
 
     commentButton.addEventListener('click', function () {
         const name = document.getElementById('name').value;
@@ -9,44 +10,45 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (name && comment) {
             const newComment = document.createElement('div');
-            newComment.className = 'comment_container';
+            newComment.className = 'comment-container';
+
+            const timestamp = new Date().toLocaleString();
+            newComment.setAttribute('data-timestamp', timestamp);
+
             newComment.innerHTML = `<strong>Name: ${name}
 						</strong><br>${comment}<br><br>`;
-						
-            commentsContainer.insertBefore
-			(newComment,commentsContainer.firstChild);
+
+            commentsContainer.appendChild(newComment);
 
             document.getElementById('name').value = '';
             commentText.value = '';
+
+            sortComments(commentsContainer, sortSelect.value);
         }
     });
-});
-document.addEventListener('DOMContentLoaded', function () {
-    function compareDates(a, b) {
-        const dateA = new Date(a.getAttribute('data-date'));
-        const dateB = new Date(b.getAttribute('data-date'));
-        return dateA - dateB;
-    }
-    function sortComments(order) {
-      const commentsContainer = document.getElementById('comments');
-      const comments = Array.from(commentsContainer.getElementsByTagName
-	  ('p'));
-        diana
 
-        main
-        comments.sort(compareDates);
+    sortComments(commentsContainer, 'desc');
 
-        if (order === 'desc') {
-            comments.reverse();
-        }
-        comments.forEach(function (comment) {
-            commentsContainer.appendChild(comment);
+    sortSelect.addEventListener('change', function () {
+        sortComments(commentsContainer, sortSelect.value);
+    });
+
+    function sortComments(container, order) {
+        const commentNodes = container.querySelectorAll('.comment-container');
+        const commentsArray = Array.from(commentNodes);
+
+        commentsArray.sort((a, b) => {
+            const timestampA = new Date(a.getAttribute('data-timestamp'));
+            const timestampB = new Date(b.getAttribute('data-timestamp'));
+
+            return order === 'asc' ? timestampA - timestampB : 
+							  timestampB - timestampA;
+        });
+
+        container.innerHTML = '';
+
+        commentsArray.forEach(commentNode => {
+            container.appendChild(commentNode);
         });
     }
-sortComments('asc');
-		const sortDropdown = document.getElementById('sort');
-		sortDropdown.addEventListener('change', function () {
-        const selectedOrder = sortDropdown.value;
-        sortComments(selectedOrder);
-    });
 });
