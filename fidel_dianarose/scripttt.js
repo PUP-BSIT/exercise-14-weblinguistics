@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
             newComment.className = 'comment_container';
             newComment.innerHTML = `<strong>Name: ${name}
 						</strong><br>${comment}<br><br>`;
-
+						
             commentsContainer.insertBefore
 			(newComment,commentsContainer.firstChild);
 
@@ -31,7 +31,9 @@ document.addEventListener('DOMContentLoaded', function () {
       const commentsContainer = document.getElementById('comments');
       const comments = Array.from(commentsContainer.getElementsByTagName
 	  ('p'));
+        diana
 
+        main
         comments.sort(compareDates);
 
         if (order === 'desc') {
