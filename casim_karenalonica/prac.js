@@ -23,7 +23,8 @@ function sortComments(order) {
   });
 }
 
-document.getElementById('comment_form').addEventListener('submit', function (event) {
+document.getElementById('comment_form').addEventListener('submit', function
+ (event) {
   event.preventDefault();
 
   const nameInput = document.getElementById('name');
@@ -33,7 +34,8 @@ document.getElementById('comment_form').addEventListener('submit', function (eve
   const newComment = document.createElement('li');
   const currentDate = new Date().toISOString();
   newComment.setAttribute('data-date', currentDate);
-  newComment.innerHTML = `<p><strong>Name:</strong> ${nameInput.value}</p><p>${commentTextInput.value}</p>`;
+  newComment.innerHTML = `<p><strong>Name:</strong> ${nameInput.value}</p><p>
+  ${commentTextInput.value}</p>`;
 
   commentsList.appendChild(newComment);
 
