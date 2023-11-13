@@ -61,3 +61,16 @@ img {
 #comment-form input, #comment-form textarea, #comment-form button {
     margin-bottom: 10px;
 }
+.gallery-image {
+	width: 100%; 
+	max-width: 100%; 
+	height: auto; 
+	border: 5px solid #C34A2C;
+	padding: 10px 20px;
+}#sort {
+	background-color: #387785;
+	color: white;
+	border: none;
+	padding: 10px 20px;
+	cursor: pointer;
+}
