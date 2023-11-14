@@ -124,9 +124,13 @@
 				<label for="comment">Comment:</label>
 				<textarea id="comment" class="input_field" required></textarea>
 				<button id="comment_button" disabled>Comment</button>
-			</div>			
-			<div id="comments_container"></div>
-		</div>		
+			
+				<button onclick="sortComments('asc')">Sort Ascending</button>
+				<button onclick="sortComments('desc')">Sort Descending</button>
+		  </div>
+
+		  <div id="comments_container"></div>
+		</div>
 
 		<div id="footer">
 			<p>&copy; 2023 Mingo Ed Judah. All rights reserved.</p>
