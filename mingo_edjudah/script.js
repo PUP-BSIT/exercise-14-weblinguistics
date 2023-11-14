@@ -15,8 +15,11 @@ function addComment() {
   if (nameInput.value && commentInput.value) {
     let commentElement = document.createElement("div");
     commentElement.className = "comment";
+    
+    commentElement.setAttribute("data-date", new Date().toLocaleString());
+
     commentElement.innerHTML = `<strong>${nameInput.value}:
-    </strong> ${commentInput.value}`;
+	</strong> ${commentInput.value}`;
 
     commentsContainer.appendChild(commentElement);
 
@@ -25,6 +28,26 @@ function addComment() {
 
     commentButton.disabled = true;
   }
+}
+
+function sortComments(order) {
+  const comments = Array.from(commentsContainer.children);
+
+  comments.sort((a, b) => {
+    const dateA = new Date(a.getAttribute("data-date"));
+    const dateB = new Date(b.getAttribute("data-date"));
+
+    if (order === 'asc') {
+      return dateA - dateB;
+    } else {
+      return dateB - dateA;
+    }
+  });
+
+  commentsContainer.innerHTML = '';
+  comments.forEach(comment => {
+    commentsContainer.appendChild(comment);
+  });
 }
 
 nameInput.addEventListener("input", checkInputs);
