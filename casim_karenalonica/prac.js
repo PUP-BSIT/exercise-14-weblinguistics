@@ -1,44 +1,64 @@
-const SORT_ORDER_ASC = 'asc';
-const SORT_ORDER_DESC = 'desc';
+document.addEventListener('DOMContentLoaded', function () {
+    const sortSelect = document.getElementById('sort');
+    const commentsContainer = document.getElementById('comments');
+    const commentButton = document.getElementById('comment_button');
+    const nameInput = document.getElementById('name');
+    const commentTextInput = document.getElementById('comment_text');
 
-function sortComments(order) {
-  const commentsList = document.getElementById('comments_list');
-  const comments = Array.from(commentsList.children);
+    const SORT_ASCENDING = 'asc';
+    const SORT_DESCENDING = 'desc';
 
-  comments.sort(function (a, b) {
-    const dateA = new Date(a.getAttribute('data-date'));
-    const dateB = new Date(b.getAttribute('data-date'));
+    const sortComments = (order) => {
+        const comments = Array.from(commentsContainer.children);
 
-    if (order === SORT_ORDER_ASC) {
-      return dateA - dateB;
-    } else if (order === SORT_ORDER_DESC) {
-      return dateB - dateA;
-    }
-  });
+        comments.sort((a, b) => {
+            const dateA = new Date(a.getAttribute('data-date'));
+            const dateB = new Date(b.getAttribute('data-date'));
 
-  commentsList.innerHTML = '';
+            return order === SORT_ASCENDING ? dateA - dateB : dateB - dateA;
+        });
 
-  comments.forEach(function (comment) {
-    commentsList.appendChild(comment);
-  });
-}
+        while (commentsContainer.firstChild) {
+            commentsContainer.removeChild(commentsContainer.firstChild);
+        }
 
-document.getElementById('comment_form').addEventListener('submit', function
- (event) {
-  event.preventDefault();
+        comments.forEach((comment) => {
+            commentsContainer.appendChild(comment);
+        });
+    };
 
-  const nameInput = document.getElementById('name');
-  const commentTextInput = document.getElementById('comment_text');
-  const commentsList = document.getElementById('comments_list');
+    sortComments(sortSelect.value);
 
-  const newComment = document.createElement('li');
-  const currentDate = new Date().toISOString();
-  newComment.setAttribute('data-date', currentDate);
-  newComment.innerHTML = `<p><strong>Name:</strong> ${nameInput.value}</p><p>
-  ${commentTextInput.value}</p>`;
+    sortSelect.addEventListener('change', function () {
+        sortComments(this.value);
+    });
 
-  commentsList.appendChild(newComment);
+    commentButton.addEventListener('click', function () {
+        const name = nameInput.value.trim();
+        const commentText = commentTextInput.value.trim();
 
-  nameInput.value = '';
-  commentTextInput.value = '';
+        if (name && commentText) {
+            const newComment = document.createElement('div');
+            newComment.setAttribute('data-date', getCurrentDate());
+            newComment.innerHTML = `<p><strong>Name:</strong> ${name}</p><p>
+			${commentText}</p>`;
+
+            commentsContainer.appendChild(newComment);
+
+            nameInput.value = '';
+            commentTextInput.value = '';
+
+            sortComments(sortSelect.value);
+        }
+    });
+
+    const getCurrentDate = () => {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = now.getMonth() + 1;
+        const day = now.getDate();
+
+        return `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0'
+		+ day : day}`;
+    };
 });
